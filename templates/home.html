@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+    .hero {
+        background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+        color: white;
+        padding: 80px 0;
+        border-radius: 0 0 40px 40px;
+        box-shadow: 0 10px 30px rgba(39, 174, 96, 0.2);
+    }
+    .upload-card {
+        background: white;
+        border: none;
+        border-radius: 25px;
+        margin-top: -60px;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        padding: 40px;
+        transition: transform 0.3s;
+    }
+    .upload-zone {
+        border: 2px dashed #dcdde1;
+        border-radius: 20px;
+        padding: 50px;
+        cursor: pointer;
+        background: #fcfcfc;
+        transition: all 0.3s;
+    }
+    .upload-zone:hover {
+        border-color: #2ecc71;
+        background: #f0fff4;
+    }
+    .btn-analyze {
+        background: #27ae60;
+        border: none;
+        border-radius: 30px;
+        padding: 12px 40px;
+        font-weight: 600;
+        letter-spacing: 1px;
+        box-shadow: 0 4px 15px rgba(39, 174, 96, 0.3);
+    }
+</style>
+
+<div class="hero text-center">
+    <div class="container">
+        <h1 class="display-4 font-weight-bold">Smart Fruit Analysis</h1>
+        <p class="lead">Harnessing Deep Learning to ensure fruit quality and freshness.</p>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10">
+            <div class="upload-card">
+                <form action="{{url_for('pred')}}" method="POST" enctype="multipart/form-data">
+                    <label for="file" class="upload-zone d-block text-center w-100 mb-4">
+                        <img src="https://cdn-icons-png.flaticon.com/512/338/338214.png" width="70" class="mb-3 opacity-50">
+                        <h4 class="text-secondary font-weight-bold">Select Fruit Image</h4>
+                        <p class="text-muted small">Optimized for Apples, Bananas, and Oranges</p>
+                        <input type="file" name="file" id="file" style="display:none" accept="image/*" required>
+                    </label>
+                    
+                    <div class="custom-control custom-checkbox mb-4 text-center">
+                        <input type="checkbox" class="custom-control-input" id="checkVerify" required>
+                        <label class="custom-control-label text-muted small" for="checkVerify">I verify this image contains a supported fruit type.</label>
+                    </div>
+
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-success btn-analyze text-white">SUBMIT & PREDICT</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

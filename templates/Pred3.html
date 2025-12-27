@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+    .result-container { padding: 40px 0; }
+    .card-dashboard {
+        border: none;
+        border-radius: 25px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        background: #fff;
+        padding: 30px;
+    }
+    .progress { height: 28px; border-radius: 15px; margin-bottom: 15px; background: #f0f0f0; }
+    .progress-bar { font-weight: 600; font-size: 0.85rem; border-radius: 15px; }
+    
+    /* Dynamic Color Classes */
+    .bar-apple { background-color: #c0392b !important; }
+    .bar-banana { background-color: #f1c40f !important; }
+    .bar-orange { background-color: #e67e22 !important; }
+    .bar-fresh { background-color: #27ae60 !important; }
+    .bar-rotten { background-color: #7f8c8d !important; }
+    
+    .img-frame {
+        border: 10px solid #fff;
+        border-radius: 20px;
+        box-shadow: 0 15px 45px rgba(0,0,0,0.1);
+        max-width: 100%;
+        height: auto;
+    }
+    .summary-badge {
+        display: inline-block;
+        padding: 8px 25px;
+        background: #f8f9fa;
+        border-radius: 30px;
+        font-weight: 600;
+        color: #27ae60;
+        border: 1px solid #e1e1e1;
+    }
+</style>
+
+<div class="container result-container">
+    <div class="text-center mb-5">
+        <h2 class="font-weight-bold mb-3">Analysis Dashboard</h2>
+        <div class="summary-badge">Neural Intelligence Report</div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-7 order-lg-1 order-2">
+            <div class="card-dashboard">
+                <h5 class="font-weight-bold mb-4">Class Confidence Level</h5>
+                
+                <label class="small text-muted text-uppercase">Apple Probability</label>
+                <div class="progress">
+                    <div class="progress-bar bar-apple" style="width: {{fruit_dict['apple']}}%">{{fruit_dict['apple']}}%</div>
+                </div>
+
+                <label class="small text-muted text-uppercase">Banana Probability</label>
+                <div class="progress">
+                    <div class="progress-bar bar-banana" style="width: {{fruit_dict['banana']}}%">{{fruit_dict['banana']}}%</div>
+                </div>
+
+                <label class="small text-muted text-uppercase">Orange Probability</label>
+                <div class="progress">
+                    <div class="progress-bar bar-orange" style="width: {{fruit_dict['orange']}}%">{{fruit_dict['orange']}}%</div>
+                </div>
+
+                <hr class="my-5">
+
+                <h5 class="font-weight-bold mb-4">Quality Assessment</h5>
+                <div class="row">
+                    <div class="col-6">
+                        <label class="small text-muted">Fresh State</label>
+                        <div class="progress">
+                            <div class="progress-bar bar-fresh" style="width: {{rotten[0]}}%">{{rotten[0]}}%</div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <label class="small text-muted">Rotten State</label>
+                        <div class="progress">
+                            <div class="progress-bar bar-rotten" style="width: {{rotten[1]}}%">{{rotten[1]}}%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-5 order-lg-2 order-1 text-center mb-4">
+            <h5 class="font-weight-bold mb-4">Target Image</h5>
+            <img src="data:image/png;base64, {{plot_url}}" class="img-frame" alt="Target Analysis">
+            <div class="mt-4">
+                <div class="alert {{ 'alert-success' if rotten[0] > rotten[1] else 'alert-secondary' }} rounded-pill border-0 shadow-sm">
+                    Detection Result: <strong>{{ "Fresh" if rotten[0] > rotten[1] else "Rotten" }}</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
