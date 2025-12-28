@@ -10,3 +10,5 @@ A deep learning project using CNNs to identify fruit types and assess their qual
 ## Model Details
 - **Architecture:** Convolutional Neural Network (CNN)
 - **Framework:** TensorFlow/Keras
+
+
